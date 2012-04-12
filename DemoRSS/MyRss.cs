@@ -10,6 +10,11 @@ namespace DemoRSS
 {
     class MyRss
     {
+        /// <summary>
+        /// Получить список записей RSS по заданному адресу
+        /// </summary>
+        /// <param name="url">Адрес рассылки</param>
+        /// <returns>Список RSS записей</returns>
         public static List<RssEntry> LoadRss(string url)
         {
             List<RssEntry> entries = new List<RssEntry>();
@@ -24,7 +29,9 @@ namespace DemoRSS
                 {
                     switch (channel.Name)
                     {
+                        //Если рассылка содержит каналы
                         case "channel":
+                            //Разбиваем на канал на записи
                             foreach (XmlNode item in channel.ChildNodes)
                             {
                                 if (item.Name == "item")
@@ -33,6 +40,7 @@ namespace DemoRSS
                                 }
                             }
                             break;
+                        //Если рассылка не содержит каналы то просто парсим записи
                         case "entry":
                             entries.Add(GetRssEntry(channel));
                             break;
@@ -43,9 +51,15 @@ namespace DemoRSS
             return entries;
         }
 
+        /// <summary>
+        /// Получение RSS записи из дочерних записей узла xml
+        /// </summary>
+        /// <param name="item">Узел xml</param>
+        /// <returns>RSS запись</returns>
         private static RssEntry GetRssEntry(XmlNode item)
         {
             RssEntry rssEntry = new RssEntry();
+
             foreach (XmlNode field in item.ChildNodes)
             {
                 switch (field.Name.ToLower())
@@ -98,6 +112,7 @@ namespace DemoRSS
                         //throw new Exception("Необрабатываемое поле рассылки - "+field.Name +" ("+field.InnerText+")");
                 }
             }
+
             return rssEntry;
         }
     }

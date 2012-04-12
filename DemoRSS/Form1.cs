@@ -26,7 +26,6 @@ namespace DemoRSS
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
     }
 }

@@ -1,5 +1,8 @@
 namespace DemoRSS
 {
+    /// <summary>
+    /// Класс для представления RSS-записи
+    /// </summary>
     public class RssEntry
     {
         public string Id { get; set; }
